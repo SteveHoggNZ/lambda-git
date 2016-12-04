@@ -1,6 +1,7 @@
 var path = require('path');
 var tar = require('tar-fs')
 var fs = require('fs')
+const execSync = require('child_process').execSync;
 
 /**
  * Installs git binaries and updates this process's PATH to include
@@ -23,6 +24,9 @@ module.exports = function installGit(options) {
 
     fs.createReadStream(path.join(__dirname, "git-2.4.3.tar"))
       .pipe(tar.extract(targetDirectory));
+    
+    execSync('mkdir ' + targetDirectory + ' && cd ' + targetDirectory +
+      ' && tar xpf ' + path.join(__dirname, "git-2.4.3.tar"));
 
     var GIT_TEMPLATE_DIR = path.join(targetDirectory, 'usr/share/git-core/templates');
     var GIT_EXEC_PATH = path.join(targetDirectory, 'usr/libexec/git-core');
