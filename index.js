@@ -21,9 +21,6 @@ module.exports = function installGit(options) {
 
     var targetDirectory = options.targetDirectory || "/tmp/git";
     var updateEnv = (options.updateEnv !== undefined) ? options.updateEnv : true; 
-
-    fs.createReadStream(path.join(__dirname, "git-2.4.3.tar"))
-      .pipe(tar.extract(targetDirectory));
     
     execSync('mkdir ' + targetDirectory + ' && cd ' + targetDirectory +
       ' && tar xpf ' + path.join(__dirname, "git-2.4.3.tar"));
